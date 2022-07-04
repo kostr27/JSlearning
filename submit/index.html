@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <h2>Кликните на кнопку ниже</h2>
+
+  <input type="button" value="Кликните, чтобы увидеть форму" id="show-button">
+
+
+  <div id="prompt-form-container">
+    <form id="prompt-form">
+      <div id="prompt-message"></div>
+      <input name="text" type="text">
+      <input type="submit" value="Ok">
+      <input type="button" name="cancel" value="Отмена">
+    </form>
+  </div>
+
+  <script>
+    const promptForm = document.forms[0]
+    const promptFormContainer = document.getElementById('prompt-form-container')
+    const showButton = document.getElementById('show-button')
+    showButton.onclick = function(){
+      showPromt('Cool text', alert)
+    } 
+    const promptMessage = document.getElementById('prompt-message')
+
+
+    function showPromt(html, callback) {
+      promptMessage.innerHTML = html
+      promptForm.text.value = ''
+      
+      promptForm.onsubmit = function() {
+        callback(promptForm.text.value)
+        promptFormContainer.style.display = 'none'
+        return false
+      } 
+      
+      promptForm.cancel.onclick = function() {
+        callback(null)
+        promptFormContainer.style.display = 'none'
+      }
+
+      promptForm.onkeydown = function(event) {
+        if (event.code == 'Escape') {
+          callback(null)
+          promptFormContainer.style.display = 'none'
+        }
+      }
+      promptFormContainer.style.display = 'block'
+      promptForm.text.focus()
+    }
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+<h1>Прокрути меня</h1>
+
+<script>
+  function addLine() {
+    let elementTop
+    let windowBottom
+
+    do {
+      let element = document.createElement('div')
+      element.textContent = Date()
+      document.body.append(element)
+      elementTop = element.getBoundingClientRect().top
+      windowBottom = document.documentElement.clientHeight
+      console.log(windowBottom, elementTop)
+    } while(elementTop < windowBottom + 100)
+  }
+
+  addLine()
+  window.addEventListener('scroll', addLine)
+</script>
+
+</body>
+</html>
